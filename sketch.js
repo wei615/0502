@@ -42,13 +42,22 @@ function drawOverlayGraphics() {
   overlayGraphics.translate(overlayGraphics.width, 0); // 將畫布的原點移到右上角
   overlayGraphics.scale(-1, 1); // 水平翻轉畫布
 
-  // 每隔 20 繪製一個圓
+  // 每隔 20 繪製一個方框，內含 5 個黑色圓
   for (let y = 0; y < overlayGraphics.height; y += 20) {
     for (let x = 0; x < overlayGraphics.width; x += 20) {
       // 從 capture 中取得相對應位置的顏色
       let col = capture.get(x, y);
-      overlayGraphics.fill(col); // 設定圓的顏色
-      overlayGraphics.ellipse(x + 10, y + 10, 15, 15); // 繪製圓，中心點偏移 10
+      let gray = (red(col) + green(col) + blue(col)) / 3; // 計算灰階值
+      overlayGraphics.fill(gray); // 設定方框的顏色為灰階
+      overlayGraphics.rect(x + 1, y + 1, 18, 18); // 繪製方框，大小為 18x18
+
+      // 繪製方框內的 5 個黑色圓
+      overlayGraphics.fill(0); // 設定圓的顏色為黑色
+      overlayGraphics.ellipse(x + 5, y + 5, 5, 5); // 左上角圓
+      overlayGraphics.ellipse(x + 13, y + 5, 5, 5); // 右上角圓
+      overlayGraphics.ellipse(x + 9, y + 9, 5, 5); // 中心圓
+      overlayGraphics.ellipse(x + 5, y + 13, 5, 5); // 左下角圓
+      overlayGraphics.ellipse(x + 13, y + 13, 5, 5); // 右下角圓
     }
   }
 
