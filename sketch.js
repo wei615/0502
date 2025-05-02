@@ -38,6 +38,10 @@ function drawOverlayGraphics() {
   overlayGraphics.background(0); // 設定背景為黑色
   overlayGraphics.noStroke();
 
+  overlayGraphics.push(); // 儲存當前繪圖設定
+  overlayGraphics.translate(overlayGraphics.width, 0); // 將畫布的原點移到右上角
+  overlayGraphics.scale(-1, 1); // 水平翻轉畫布
+
   // 每隔 20 繪製一個圓
   for (let y = 0; y < overlayGraphics.height; y += 20) {
     for (let x = 0; x < overlayGraphics.width; x += 20) {
@@ -47,4 +51,6 @@ function drawOverlayGraphics() {
       overlayGraphics.ellipse(x + 10, y + 10, 15, 15); // 繪製圓，中心點偏移 10
     }
   }
+
+  overlayGraphics.pop(); // 恢復繪圖設定
 }
